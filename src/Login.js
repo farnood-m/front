@@ -6,7 +6,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +32,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <h1>login</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
