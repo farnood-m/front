@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("http://127.0.0.1:5000/validate_login", {
         method: "POST",
@@ -19,10 +20,9 @@ const Login = () => {
       });
       const data = await response.json();
       if (data.success) {
-        console.log("Login successful");
-        setError("");
+        navigate("/predict");
       } else {
-        setError("Invalid username or password");
+        setError(data.message);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -54,7 +54,7 @@ const Login = () => {
           />
         </div>
         <button type="submit">Login</button>
-        {error && <p className="error-message">{error}</p>}
+        {error ? <p className="error-message">{error}</p> : null}
       </form>
     </div>
   );
